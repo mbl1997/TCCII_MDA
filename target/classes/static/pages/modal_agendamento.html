@@ -1,0 +1,93 @@
+<head>
+<meta charset="UTF-8" />
+</head>
+<div class="modal-header" style="background-color:#605ca8; color: white;">
+	<h3 class="modal-title" id="modal-title">Agendamento</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+	<form name="agendamentoForm">
+		<div class="form-group">
+			<div class="col-md12">
+				<label for="selClientes">Paciente:</label>
+			</div>
+			<div clas="col-md12">
+				<ui-select ng-model="ctrl.agendamento.cliente" ng-required = "true" theme="bootstrap" ng-disabled="ctrl.editable(ctrl.agendamento.start)"
+					style="width: 450px;" title="Choose a country"> <ui-select-match
+					placeholder="Selecione um Paciente">{{ctrl.agendamento.cliente.nomeCompleto}}</ui-select-match>
+				<ui-select-choices
+					repeat="cliente in ctrl.comboClientes | filter: $select.search">
+				<span
+					ng-bind-html="cliente.nomeCompleto | highlight: $select.search"></span>
+				</ui-select-choices> </ui-select>
+			</div>
+		<div class="form-group">
+			<div class="col-md12">
+				<label ng-show="ctrl.x.tipoUsuario != 'C'" for="selFuncionarios">Profissional da Saúde:</label>
+			</div>
+			<div clas="col-md12" ng-show="ctrl.x.tipoUsuario != 'C'">
+				<ui-select ng-model="ctrl.agendamento.funcionario" theme="bootstrap" ng-disabled="ctrl.editable(ctrl.agendamento.start)"
+					style="width: 450px;"> <ui-select-match
+					placeholder="Selecione um Profissional">{{ctrl.agendamento.funcionario.nomeCompleto}}</ui-select-match>
+				<ui-select-choices
+					repeat="funcionario in ctrl.comboFuncionarios | filter: $select.search">
+				<span
+					ng-bind-html="funcionario.nomeCompleto | highlight: $select.search"></span>
+				</ui-select-choices> </ui-select>
+			</div>
+		</div>
+
+		<div class="clockpicker" ng-class="agendamentoForm.inicio.$error.pattern || 
+				agendamentoForm.inicio.$error.required ? 
+				'form-group has-error has-feedback' : ''">
+				<label for="inicio">Horário da consulta:</label>
+				<input id="inicio" name="inicio" type="text" class="form-control" 
+					ng-model="ctrl.agendamento.formatedStart"
+					ng-disabled="ctrl.editable(ctrl.agendamento.start)"
+					maxlength="5" ng-required="true" onKeyPress="mascara(this, '##:##')" 
+					ng-pattern="/^([01]\d|2[0-3]):?([0-5]\d)$/" ng-required="true">												 					
+			</div>	
+
+		<div class="form-group">
+			<div class="col-md12">
+				<label for="observacao">Procedimentos da Consulta: </label>
+			</div>
+			<div class="col-md12">
+				<textarea id="observacao"
+					class="form-control" ng-disabled="ctrl.agendamento.fechado || ctrl.agendamento.naoCompareceu" ng-model="ctrl.agendamento.descricao"></textarea>
+			</div>
+		</div>
+			
+						
+			<div class="col-md12">
+				<div class="checkbox">
+					<label><input type="checkbox"  value="true" ng-if="ctrl.agendamento.valor == null" ng-disabled="ctrl.editableNaoCompareceu(ctrl.agendamento.start)"
+						ng-model="ctrl.agendamento.naoCompareceu">Não compareceu</label>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="form-group">
+	<button id="btnImpostoRenda" type="button" class="btn bg-purple btn-flat margin"
+			ng-if="ctrl.agendamento.fechado"
+			style="width: 240px;" ng-click="ctrl.imprimirImpostoRenda(ctrl.agendamento)">
+			Recibo para Imposto de Renda</button>
+
+	<button id="btnAtestado" type="button" class="btn bg-purple btn-flat margin"
+			ng-if="ctrl.agendamento.fechado"
+			style="width: 140px;" ng-click="ctrl.imprimirAtestado(ctrl.agendamento)">
+			Gerar Atestado</button>
+	</div>
+
+<div class="modal-footer">
+	<div class="form-group">
+		<button id="btnSalvar" type="button" class="btn btn-success"
+			ng-if="!ctrl.agendamento.fechado" ng-disabled="agendamentoForm.$invalid"
+			style="width: 100px; background-color:#605ca8;" ng-click="ctrl.salvar(ctrl.agendamento)">
+			Salvar</button>
+		<button id="btnCancel" type="button" class="btn btn-default"
+			ng-click="ctrl.cancel()" style="width: 100px;">Cancelar</button>
+	</div>
+</div>

@@ -1,0 +1,70 @@
+<head>
+<meta charset="UTF-8" />
+</head>
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">Evolução</h3>
+</div>
+
+<div class="modal-body" id="modal-body">
+	<form name="evolucaoForm">
+		<div class="form-group">
+				<div class="col-md12">
+					<label for="selPacientes">Paciente:</label>
+				</div>
+				<div clas="col-md12" ng-show="ctrl.x.permissao.id != 1">
+					<ui-select ng-model="ctrl.evolucao.cliente"
+						theme="bootstrap" style="width: 450px;"> <ui-select-match
+						placeholder="Selecione um Paciente">{{ctrl.evolucao.cliente.nomeCompleto}}</ui-select-match>
+					<ui-select-choices
+						repeat="cliente in ctrl.comboClientes | filter: $select.search">
+					<span
+						ng-bind-html="cliente.nomeCompleto | highlight: $select.search"></span>
+					</ui-select-choices> </ui-select>
+				</div>
+			</div>
+			
+			<div class="col-md12">
+						<label class="col-sm-2 control-label">Data: </label>
+						<div class="col-sm-5">
+							<div class="input-group">
+								<div class="input-group-addon">
+
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="date" class="form-control" autofocus
+									ng-required="true" ng-model="ctrl.evolucao.data"
+									data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+							</div>
+						</div>
+					</div>
+			<div class="col-md12">
+				<label for="exampleInput">Horário: </label> <input
+					type="time" id="hora" name="hora" ng-model="ctrl.evolucao.hora"
+					placeholder="HH:mm:ss" required />
+			</div>
+			</div>
+
+			
+				<div class="col-md12">
+					<label for="relatorio">Relatório: </label>
+				</div>
+				<div class="col-md12">
+					<textarea id="relatorio" class="form-control"
+						ng-model="ctrl.evolucao.relatorio"></textarea>
+				</div>
+				<div class="form-group" ng-if="ctrl.editable(ctrl.agendamento.start)">
+				
+			</div>
+		</div>
+	</form>
+</div>
+
+<div class="modal-footer">
+	<div class="form-group">
+		<button id="btnSalvar" type="button" class="btn btn-success"
+			ng-disabled="evolucaoForm.$invalid" style="width: 100px;"
+			ng-click="ctrl.salvar(ctrl.evolucao)">Salvar</button>
+		<button id="btnCancel" type="button" class="btn btn-default"
+			ng-click="ctrl.cancel()" style="width: 100px;">Cancelar</button>
+	</div>
+</div>

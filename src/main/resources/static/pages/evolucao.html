@@ -1,0 +1,59 @@
+<head>
+<meta charset="utf-8">
+</head>
+
+<div id="page-wrapper">
+	<div class="row">
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<form name="frmEvolucao" role="form">
+							<div class="col-lg-8">
+								<div class=" input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-search"></i>
+									</div>
+									<input class="form-control" id="pesquisarNome" type="text"
+										ng-model="ctrl.pesquisaNome.nomeCompleto"
+										placeholder="Pesquisar">
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<button type="button" ng-show="ctrl.x.tipoUsuario == 'F'" class="btn bg-purple btn-flat margin"
+									ng-click="ctrl.openEventModal(evolucao)">Cadastrar
+									Evolução</button>
+							</div>
+						</form>
+					</div>
+					<hr />
+					<div class="row">
+						<table ng-table="ctrl.tableParams"
+							class="table table-condensed table-bordered table-striped">
+							<caption style="text-align: center;">Lista de
+								Evoluções</caption>
+							<tr ng-repeat="evolucao in $data | filter:ctrl.pesquisaNome">
+								<td data-title="'ID'">{{evolucao.idEvolucao}}</td>
+								<td data-title="'Paciente'">{{evolucao.cliente.nomeCompleto}}</td>
+								<td data-title="'Data'">{{evolucao.dataFormatada}}</td>
+								<td data-title="'Hora'">{{evolucao.horaFormatada}}</td>
+								<td data-title="'Ações'" class="text-center"><a
+									class="btn btn-warning btn-xs"
+									ng-click="ctrl.imprimirRelatorioEvolucao(evolucao)"
+									title="Imprimir Evolucao"><i class="fa fa-print fa-fw"></i></a>
+									<a class="btn btn-danger btn-xs"
+									ng-click="ctrl.excluirEvolucao(evolucao)"
+									title="Excluir Evolucao"><i class="fa fa-times fa-fw"></i></a>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,160 @@
+<head>
+<meta charset="utf-8">
+</head>
+<div id="page-wrapper" ng-show="ctrl.x.permissao.id != 1">
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-4"></div>
+						<div class="col-lg-8">
+							<button type="button" class="btn bg-purple btn-flat margin"
+								 data-toggle="modal"
+								data-target="#modal-default">Cadastrar Nova Despesa</button>
+						</div>
+					</div>
+
+					<hr />
+					<div class="row">
+						<div class="col-md-2">
+							<h4>Período:</h4>
+						</div>
+						<div class="col-md-4">
+							<md-datepicker ng-change="ctrl.searchDisabled = false;"
+								ng-model="ctrl.dtInicio" md-placeholder="Informe a data"></md-datepicker>
+						</div>
+						<div class="col-md-4">
+							<md-datepicker ng-change="ctrl.searchDisabled = false;"
+								ng-model="ctrl.dtFim" md-placeholder="Informe a data"
+								md-min-date="ctrl.dtInicio"></md-datepicker>
+						</div>
+						<div class="col-md-2">
+							<button type="button" ng-disabled="ctrl.searchDisabled"
+								ng-click="ctrl.pesquisarDespesasPeriodo(ctrl.dtInicio, ctrl.dtFim)"
+								class="btn bg-purple btn-flat margin btn-block">Pesquisar</button>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-8">
+							<h4>Total de valores pagos no período:</h4>
+						</div>
+						<div class="col-md-4"
+							style="text-align: right; color: #0A6CAC; font-weight: bold;">
+							<h4>{{ctrl.totalDespesasPagasPeriodo | monetarioFormat}}</h4>
+						</div>
+						<div class="col-md-8">
+							<h4>Total de valores não pagos no período:</h4>
+						</div>
+						<div class="col-md-4"
+							style="text-align: right; color: #0A6CAC; font-weight: bold;">
+							<h4>{{ctrl.totalDespesasNaoPagasPeriodo | monetarioFormat}}</h4>
+						</div>
+						<div class="col-md-8">
+							<h4>Total de despesas no período:</h4>
+						</div>
+						<div class="col-md-4"
+							style="text-align: right; color: #E4004D; font-weight: bold;">
+							<h4>{{ctrl.totalDespesasPeriodo | monetarioFormat}}</h4>
+						</div>
+					</div>
+
+					<div id="list" class="row">
+						<table ng-table="ctrl.tableDespesasParams"
+							class="table table-condensed table-bordered table-striped">
+							<caption style="text-align: center;">Despesas no
+								período</caption>
+							<tr ng-repeat="despesa in $data">
+								<td data-title="'Descrição'">{{despesa.descricao}}</td>
+								<td data-title="'Dt Vencimento'" class="text-center">{{despesa.vencimento
+									| date: 'dd/MM/yyyy'}}</td>
+								<td data-title="'Valor'" class="text-center">{{despesa.valor | monetarioFormat}}</td>
+								<td data-title="'Pago'" class="text-center">{{despesa.pago | booleanFormat}}</td>
+								<td data-title="'Observação'">{{despesa.observacao}}</td>
+								<td data-title="'Ações'" class="text-center"><a
+									class="btn btn-warning btn-xs"
+									ng-click="ctrl.editarDespesa(despesa)" data-target="#modal-info" data-toggle="modal" title="Editar Despesa"><i
+										class="fa fa-pencil fa-fw"></i></a> <a
+									class="btn btn-danger btn-xs"
+									ng-click="ctrl.excluirDespesa(despesa)" title="Excluir Despesa"><i
+										class="fa fa-close fa-fw"></i></a> <a
+									class="btn btn-success btn-xs" ng-disabled="despesa.pago"
+									ng-click="ctrl.marcarPago(despesa)" title="Marcar como Pago"><i
+										class="fa fa-check fa-fw"></i></a></td>
+							</tr>
+						</table>
+					</div>
+					<!-- /#list -->
+
+					<div class="form-group">
+						<button id="btnImprimir" name="btnImprimir" type="button"
+							style="float: right;"
+							ng-disabled="ctrl.totalDespesasPeriodo == 0"
+							ng-click="ctrl.imprimirRelatorioDespesas(ctrl.dtInicio, ctrl.dtFim)"
+							class="btn bg-purple btn-flat margin">Imprimir despesas do período</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="modal-default">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color:#605ca8; color: white;>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Cadastrar Nova Despesa</h4>
+			</div>
+			<div class="modal-body">
+			<form name="cadastroDespesaForm">
+				<md-input-container class="md-block">
+  					<label>Descrição</label>
+  					<input name="descricao" maxlength="30" ng-model="ctrl.despesa.descricao" md-autofocus ng-required="true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Valor</label>
+					<input name="valor" maxlength="7" ng-model="ctrl.despesa.valor" 
+						ng-pattern="/^\$?[\d]+(\,\d{1,2})?$/"
+						ng-required="true"
+						formatted-valor>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Quantidade</label>
+					<input name="quantidade" ng-model="ctrl.despesa.quantidade" 
+						ng-required="true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Data de Vencimento</label>
+					<input type="date" class="form-control" autofocus
+									ng-required="true" ng-model="ctrl.despesa.vencimento"
+									data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+				</md-input-container>				
+				<md-input-container>
+				    <label>Observação</label>
+				    <textarea name="observacao" ng-model="ctrl.despesa.observacao"></textarea>				    
+				</md-input-container>
+				<br />								
+				<md-checkbox ng-model="ctrl.despesa.pago" aria-label="Conta paga">
+  					Conta paga
+				</md-checkbox>
+			</form>
+	</md-toolbar>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" ng-disabled="cadastroDespesaForm.$invalid" ng-click="ctrl.salvarDespesa(ctrl.despesa)" data-dismiss="modal"> Salvar</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,52 @@
+<div class="modal modal-info fade" id="modal-info">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Cadastrar Nova Despesa</h4>
+			</div>
+			<div class="modal-body">
+			<form name="cadastroDespesaForm">
+				<md-input-container class="md-block">
+  					<label>Descrição</label>
+  					<input name="descricao" maxlength="30" ng-model="ctrl.despesa.descricao" md-autofocus ng-required="true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Valor</label>
+					<input name="valor" maxlength="7" ng-model="ctrl.despesa.valor" 
+						ng-pattern="/^\$?[\d]+(\,\d{1,2})?$/"
+						ng-required="true"
+						formatted-valor>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Data de Vencimento</label>
+					<input type="date" class="form-control" autofocus
+									ng-required="true" ng-model="ctrl.despesa.vencimento"
+									data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+				</md-input-container>				
+				<md-input-container>
+				    <label>Observação</label>
+				    <textarea name="observacao" ng-model="ctrl.despesa.observacao"></textarea>				    
+				</md-input-container>
+				<br />								
+				<md-checkbox ng-model="ctrl.despesa.pago" aria-label="Conta paga">
+  					Conta paga
+				</md-checkbox>
+			</form>
+		</div>
+	</md-toolbar>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline pull-left"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-outline" ng-disabled="cadastroDespesaForm.$invalid" ng-click="ctrl.cadastrarDespesa(ctrl.despesa)" data-dismiss="modal"> Salvar</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

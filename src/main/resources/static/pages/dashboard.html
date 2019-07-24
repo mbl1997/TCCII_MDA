@@ -1,0 +1,166 @@
+
+<meta charset="utf-8">
+<!-- Main content -->
+	<!-- Content Header (Page header) -->
+	<section class="content-header" ng-controller="dashboardController as ctrl">
+		<h1>Dashboard</h1>
+<section class="content">
+
+  <!-- Small boxes (Stat box) -->
+      <div class="row" >
+        <div class="col-lg-3 col-xs-6">
+         
+        </div>
+       </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6" ng-show="ctrl.x.tipoUsuario == 'C'">
+          <!-- small box -->
+          <div class="small-box bg-green" >
+            <div class="inner">
+              <h3>{{ctrl.lstAgendamentosDoDia}}</h3>
+
+              <p>Consultas do Dia</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#/agenda" class="small-box-footer">
+              Detalhes <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-xs-6" ng-show="ctrl.x.tipoUsuario == 'F'">
+          <!-- small box -->
+          <div class="small-box bg-green" >
+            <div class="inner">
+              <h3>{{ctrl.lstAgendamentosDoDiaGeral}}</h3>
+
+              <p>Consultas do Dia</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#/agenda" class="small-box-footer">
+              Detalhes <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow" ng-show="ctrl.x.tipoUsuario == 'F'">
+            <div class="inner">
+              <h3>{{ctrl.lstNovosUsuarios}} </h3>
+
+              <p>Novos Usuarios</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#/consultarCliente" class="small-box-footer">
+              Detalhes <i class="fa fa-arrow-circle-right"></i>
+            </a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+         
+        <!-- ./col -->
+      </div>
+      
+  <div class="row">
+	<div class="col-md-4 col-sm-4 col-xs-6">
+          <!-- Widget: user widget style 1 -->
+          <div class="box box-widget widget-user-2">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-yellow">
+              <div class="widget-user-image">
+                <img class="img-circle" ng-show="ctrl.x.tipoUsuario == 'C'" src="https://thumbs.dreamstime.com/z/perfil-do-homem-idoso-com-len%C3%A7o-22567544.jpg" alt="User Avatar">
+              	<img class="img-circle" ng-show="ctrl.x.tipoUsuario == 'F'" src="http://www.fae.br/portal/wp-content/uploads/2015/01/medica.png" alt="User Avatar">
+              </div>
+              <!-- /.widget-user-image -->
+              <h3 class="widget-user-username">{{ctrl.x.nomeCompleto}}</h3>
+              <h5 class="widget-user-desc">Meus Dados do Mês</h5>
+            </div>
+            <div class="box-footer no-padding">
+              <ul class="nav nav-stacked">
+                <li><a href="">Consultas <span class="pull-right badge bg-blue">{{ctrl.consultasDoMesFuncionario}}</span></a></li>
+              </ul>
+            </div>
+          </div>
+		
+	</div>
+
+	
+
+
+	<div class="col-md-4" ng-show="ctrl.x.tipoUsuario == 'F'">
+              <!-- USERS LIST -->
+              <div class="box box-danger" >
+                <div class="box-header with-border">
+                  <h3 class="box-title">Novos Pacientes</h3>
+
+                  <div class="box-tools pull-right">
+                    <span class="label label-danger">8 Novos Pacientes</span>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <ul class="users-list clearfix">
+                    <li>
+                      <img src="./lib/dist/img/velho3.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Pietra</a>
+                      <span class="users-list-date">Hoje</span>
+                    </li>
+                    <li>
+                      <img src="./lib/dist/img/velho1.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Paulo</a>
+                      <span class="users-list-date">Ontem</span>
+                    </li>
+                    <li>
+                      <img src="./lib/dist/img/velho4.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Leandro</a>
+                      <span class="users-list-date">12 Jan</span>
+                    </li>
+                    <li>
+                      <img src="./lib/dist/img/velho2.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Samuel</a>
+                      <span class="users-list-date">12 Jan</span>
+                    </li>
+                   <li>
+                      <img src="./lib/dist/img/velho5.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Luciana</a>
+                      <span class="users-list-date">14 Jan</span>
+                    </li>
+                    <li>
+                      <img src="./lib/dist/img/velho6.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Fabiana</a>
+                      <span class="users-list-date">15 Jan</span>
+                    </li>
+                    <li>
+                      <img src="./lib/dist/img/velho7.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Samantha </a>
+                      <span class="users-list-date">15 Jan</span>
+                    </li>
+                     <li>
+                      <img src="./lib/dist/img/velho8.jpg" alt="User Image">
+                      <a class="users-list-name" href="#">Julianna</a>
+                      <span class="users-list-date">13 Jan</span>
+                    </li> 
+                  </ul>
+                  <!-- /.users-list -->
+                </div>
+                <!-- /.box-body -->
+              </div>
+              <!--/.box -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+</section>	

@@ -1,0 +1,220 @@
+<!-- Content Wrapper. Contains page content -->
+ <meta charset="utf-8">
+<div id="content-wrapper" ng-show="ctrl.x.permissao.id != 1">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>Cadastro de Pacientes</h1>
+		<ol class="breadcrumb">
+			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li><a href="#">Pacientes</a></li>
+			<li class="active">Cadastro</li>
+		</ol>
+	</section>
+	<!-- right column -->
+	<div class="col-md-12">
+		<!-- Horizontal Form -->
+		<div class="box box-info">
+			<div class="box-header with-border">
+				<h3 class="box-title">Inserir Paciente</h3>
+			</div>
+			<!-- /.box-header -->
+			<!-- form start -->
+									
+			<form name="frmCliente" ng-submit="ctrl.salvarClientes(ctrl.cliente)" class="form-horizontal">
+				<div class="box-body">
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Nome
+							Completo: </label>
+						<div class="col-sm-8">
+							<input name="txtNome" ng-model="ctrl.cliente.nomeCompleto" maxlength="130"
+								required autofocus type="text" class="form-control"
+								placeholder="Nome Completo">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Usuario:
+						</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control"
+								ng-model="ctrl.cliente.login" maxlength="130" required
+								type="text" placeholder="Usuario">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-2 control-label">Senha:
+						</label>
+						<div class="col-sm-5">
+							<input type="password" class="form-control"
+								ng-model="ctrl.cliente.senha" maxlength="130" required
+								autofocus placeholder="Senha">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Data Nascimento: </label>
+						<div class="col-sm-5">
+							<div class="input-group">
+								<div class="input-group-addon">
+
+									<i class="fa fa-calendar"></i>
+								</div>
+								<input type="date" class="form-control" autofocus
+									ng-required="true" ng-model="ctrl.cliente.dataNascimento"
+									data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">CPF: 
+						</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control"
+								ng-model="ctrl.cliente.cpf_cnpj" maxlength="130" ng-required="true"
+								autofocus type="text" placeholder="CPF">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Email: 
+						</label>
+						<div class="col-sm-5">
+							<input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+								ng-model="ctrl.cliente.email" maxlength="130" 
+								autofocus type="text" placeholder="Email">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Telefone:  
+						</label>
+						<div class="col-sm-4">
+							<input type="tel" class="form-control" 	ng-model="ctrl.cliente.telefonePrincipal" maxlength="11" 
+								placeholder="Telefone" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+									<label class="col-sm-2 control-label">Sexo</label>
+									<div class="col-sm-2">
+									<select name="sexo" class="form-control" ng-model="ctrl.cliente.sexo">
+										<option value="">Selecione ...</option>
+										<option value="M">Masculino</option>
+										<option value="F">Feminino</option>											
+									</select>
+									</div>
+								</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">CEP:  
+						</label>
+						<div class="col-sm-2">
+							<input type="text" onKeyPress="mascara(this, '#####-###')" class="form-control" ng-model="ctrl.cliente.cep" maxlength="9" ng-pattern="/^[0-9]{5}[-][0-9]{3}$/"
+								ng-blur="ctrl.cliente.cep?ctrl.buscarCep(ctrl.cliente.cep):''"
+								placeholder="CEP" formatted-cep>
+						</div>
+					</div>
+					
+																																				
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Rua:  
+						</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.rua" maxlength="100" 
+								placeholder="Rua"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Numero:  
+						</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.numero" maxlength="6" 
+								placeholder="Numero"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Complemento:  
+						</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.complemento" maxlength="100" 
+								placeholder="Complemento"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Bairro:  
+						</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.bairro" maxlength="35" 
+								placeholder="Bairro"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Cidade:  
+						</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.cidade" maxlength="50" 
+								placeholder="Cidade"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">UF:  
+						</label>
+						<div class="col-sm-1">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.uf" maxlength="2" 
+								placeholder="UF"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Observações:  
+						</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.observacoes" maxlength="100" 
+								placeholder="Observações"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Responsável:  
+						</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.nomeCompletoResponsavel" maxlength="100" 
+								placeholder="Nome Completo Responsável"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Telefone responsável:  
+						</label>
+						<div class="col-sm-4">
+							<input type="tel" class="form-control" ng-model="ctrl.cliente.telefoneContatoResponsavel" maxlength="14" 
+								placeholder="Telefone contato Responsável"/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Numero Prontuário:  
+						</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" ng-model="ctrl.cliente.numeroProntuario" maxlength="10" 
+								placeholder="Numero"/>
+						</div>
+					</div>
+				</div>
+				<!-- /.box-body -->
+				<div class="box-footer">
+					<button id="btnSalvarCliente"  type="submit" ng-disabled="!ctrl.cliente.nomeCompleto" class="btn btn-info pull-right">Salvar</button>
+				</div>
+				<!-- /.box-footer -->
+				
+		</form>
+		</div>
+	</div>
+</div>

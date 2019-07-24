@@ -1,0 +1,139 @@
+<head>
+<meta charset="utf-8">
+</head>
+<div id="page-wrapper" ng-show="ctrl.x.permissao.id != 1">
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Receitas</h1>
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+				  <hr />
+					<div class="row">
+						<div class="col-md-2">
+							<h4>Período:</h4>
+						</div>
+						<div class="col-md-4">
+							<md-datepicker ng-change="ctrl.searchDisabled = false;"
+								ng-model="ctrl.dtInicio" md-placeholder="Informe a data"></md-datepicker>
+						</div>
+						<div class="col-md-4">
+							<md-datepicker ng-change="ctrl.searchDisabled = false;"
+								ng-model="ctrl.dtFim" md-placeholder="Informe a data"
+								md-min-date="ctrl.dtInicio"></md-datepicker>
+						</div>
+						<div class="col-md-2">
+							<button type="button" ng-disabled="ctrl.searchDisabled"
+								ng-click="ctrl.pesquisarReceitasPeriodo(ctrl.dtInicio, ctrl.dtFim)"
+								class="btn bg-purple btn-flat margin btn-block">Pesquisar</button>
+						</div>
+					</div>
+					<br />
+					<div class="row">																	
+						<div class="col-md-8">
+							<h4>Total de valores pagos em consultas no período: </h4>
+						</div>
+						<div class="col-md-4" style="text-align: right; color: #00B768; font-weight: bold;">
+							<h4>{{ctrl.totalConsultasPeriodo | monetarioFormat}}</h4>
+						</div>												
+					</div>
+
+					<div id="list" class="row">
+						<table ng-table="ctrl.tableReceitasParams"
+							class="table table-condensed table-bordered table-striped">
+							<caption style="text-align: center;">Receitas no
+								período</caption>
+							<tr ng-repeat="receita in $data">
+								<td data-title="'Funcionario'" class="text-center">{{receita.funcionario.nomeCompleto}}</td>
+									<td data-title="'Paciente'" class="text-center">{{receita.cliente.nomeCompleto}}</td>
+								<td data-title="'Descrição'" class="text-center">{{receita.descricao}}</td>
+								<td data-title="'Data Consulta'" class="text-center">{{receita.start | date: 'dd/MM/yyyy'}}</td>
+								<td data-title="'Valor'" class="text-center">{{receita.valor
+									| monetarioFormat}}</td>
+								<td data-title="'Pago'" class="text-center">{{receita.fechado | booleanFormat}}</td>
+								
+							</tr>
+						</table>
+					</div>
+					<!-- /#list -->
+
+					<div class="form-group">
+						<button id="btnImprimir" name="btnImprimir" type="button"
+							style="float: right;"
+							ng-disabled="ctrl.totalreceitasPeriodo == 0"
+							ng-click="ctrl.imprimirRelatorioReceitas(ctrl.dtInicio, ctrl.dtFim)"
+							class="btn bg-purple btn-flat margin"">Imprimir receitas do período</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal modal-info fade" id="modal-info">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">Cadastrar Nova receita</h4>
+			</div>
+			<div class="modal-body">
+			<form name="cadastroReceitaForm">
+				<md-input-container class="md-block">
+  					<label>Descrição</label>
+  					<input name="descricao" maxlength="30" ng-model="ctrl.receita.descricao" md-autofocus ng-required="true">
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Valor</label>
+					<input name="valor" maxlength="7" ng-model="ctrl.receita.valor" 
+						ng-pattern="/^\$?[\d]+(\,\d{1,2})?$/"
+						ng-required="true"
+						formatted-valor>
+				</md-input-container>
+				<div class="form-group">
+						<label for="text" class="col-sm-2 control-label">Permissão: </label> 
+						<div class="col-sm-5">
+						<select name="formaPagamento" class="form-control" ng-model="ctrl.receita.formaPagamento"
+							ng-options="formaPagamento for formaPagamento in ctrl.listFormaPagamento track by formaPagamento.id"
+							ng-required="true">
+							<option value="">Selecione a Forma de Pagamento</option>
+						</select>
+						</div>
+				<md-input-container class="md-block">
+					<label>Data de Vencimento</label>
+					<input type="date" class="form-control" autofocus
+									ng-required="true" ng-model="ctrl.receita.vencimento"
+									data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+				</md-input-container>				
+				<md-input-container>
+				    <label>Observação</label>
+				    <textarea name="observacao" ng-model="ctrl.receita.observacao"></textarea>				    
+				</md-input-container>
+				<br />								
+				<md-checkbox ng-model="ctrl.receita.pago" aria-label="Conta paga">
+  					Conta paga
+				</md-checkbox>
+			</form>
+		</div>
+	</md-toolbar>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline pull-left"
+					data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-outline" ng-disabled="cadastroReceitaForm.$invalid" ng-click="ctrl.salvarReceita(ctrl.receita)" data-dismiss="modal"> Salvar</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

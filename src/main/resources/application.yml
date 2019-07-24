@@ -1,0 +1,15 @@
+server.port: 8443
+server.ssl.key-store: classpath:keystore.p12
+server.ssl.key-store-password: OdontoFacil17
+server.ssl.keyStoreType: PKCS12
+server.ssl.keyAlias: tomcat
+
+
+restfbmessenger:
+  enabled: true # Enable RestFB Messenger
+  access-token: EAAN2XHBDq64BAEf7tNqZCj0ZADUCqmTdgZAq8clqCfE6DkMFw2s5tR4EfBhqU769nhr31Wtc4TEZBC34uZBuioy0aOOkoyapxj0lscOQYF8vqxs7AVHzCxQyGr54hHcZAF9rZCKEkYHG5XEQpYTgWM6XSiBYeN0S8gXvZCzZBKdy92jZBPYDHDUfOVd9b4FRncQNUZD# The Facebook access token (required to send messages)
+  app-secret: # The Facebook app secret (if not provided the payload signature will not be validated; useful in e.g. dev environment)
+  api-version: v2.8 # The Facebook api version
+  webhook:
+    enabled: true # Enable the webhook servlet
+    path: /webhook # The path of the webhook servlet
